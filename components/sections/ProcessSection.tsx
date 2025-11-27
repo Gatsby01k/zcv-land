@@ -2,71 +2,49 @@ export default function ProcessSection() {
   return (
     <section className="block reveal" id="process">
       <div className="block-inner">
-        <div className="block-headline">
-          <div>
-            <div className="block-kicker">Process</div>
-            <h2 className="block-title">
-              A three-step, conversation-first process.
-            </h2>
-          </div>
+        <header className="block-header">
+          <p className="block-kicker">Process</p>
+          <h2 className="block-title">
+            A discreet, straightforward path from first contact to allocation.
+          </h2>
           <p className="block-copy">
-            There is no onboarding funnel. Everything starts with a private email
-            and a straightforward exchange focused on objectives, constraints and
-            fit.
+            We keep the process lean, private and documented. You always know
+            what the next step is, what is expected from each side, and how
+            decisions are made.
           </p>
-        </div>
-        <div className="timeline">
-          <div className="timeline-item">
-            <div className="timeline-bullet-wrap">
-              <div className="timeline-bullet">
-                <span />
-              </div>
-            </div>
-            <div className="timeline-content">
-              <div className="timeline-index">Step 01</div>
-              <div className="timeline-title">Introduction</div>
-              <p className="timeline-text">
-                Send a short profile, objectives and indicative ticket to{" "}
-                <a href="mailto:invest@zcash.ventures" className="email-link">
-                  invest@zcash.ventures
-                </a>
-                , including jurisdiction and preferred horizon.
-              </p>
-            </div>
-          </div>
-          <div className="timeline-item">
-            <div className="timeline-bullet-wrap">
-              <div className="timeline-bullet">
-                <span />
-              </div>
-            </div>
-            <div className="timeline-content">
-              <div className="timeline-index">Step 02</div>
-              <div className="timeline-title">Structure & terms</div>
-              <p className="timeline-text">
-                The team responds with potential structures, applicable bonus
-                ranges and relevant considerations so that decisions can be taken
-                with full context.
-              </p>
-            </div>
-          </div>
-          <div className="timeline-item">
-            <div className="timeline-bullet-wrap">
-              <div className="timeline-bullet">
-                <span />
-              </div>
-            </div>
-            <div className="timeline-content">
-              <div className="timeline-index">Step 03</div>
-              <div className="timeline-title">Participation & follow-up</div>
-              <p className="timeline-text">
-                Once terms are agreed, participation is executed accordingly.
-                Where appropriate, the team remains available for ongoing
-                communication.
-              </p>
-            </div>
-          </div>
-        </div>
+        </header>
+
+        <ol className="steps">
+          <li className="step">
+            <h3>1. Initial contact</h3>
+            <p>
+              You reach out directly to the team. We introduce the program,
+              share high-level parameters and check for basic alignment.
+            </p>
+          </li>
+          <li className="step">
+            <h3>2. Deeper discussion</h3>
+            <p>
+              We discuss objectives, constraints, jurisdictional considerations
+              and what a sensible position could look like for you.
+            </p>
+          </li>
+          <li className="step">
+            <h3>3. Structuring & documentation</h3>
+            <p>
+              We agree a structure, draft the necessary documentation and outline
+              reporting, timelines and any applicable bonus framework.
+            </p>
+          </li>
+          <li className="step">
+            <h3>4. Execution & ongoing dialogue</h3>
+            <p>
+              Once everything is signed and funded, the focus shifts to building
+              and monitoring positions — with periodic, quiet updates, not a
+              constant content stream.
+            </p>
+          </li>
+        </ol>
       </div>
     </section>
   );
