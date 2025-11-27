@@ -1,16 +1,16 @@
 export default function Strip() {
+  const text =
+    "ZCASH.VENTURES · PRIVATE ZEC VENTURE ACCESS · STRUCTURED OFF-MARKET DEALS · UP TO +25% BONUS FOR EARLY PARTNERS · NO PUBLIC ACCOUNTS";
+
   return (
-    <div className="strip">
+    <section className="strip">
       <div className="strip-inner">
-        <span>
-          ZCASH.VENTURES · PRIVACY VENTURES PROGRAM · +25% BONUS FRAMEWORK ·
-          DIRECT ACCESS · NO PUBLIC ACCOUNTS
-        </span>
-        <span>
-          ZCASH.VENTURES · PRIVACY VENTURES PROGRAM · +25% BONUS FRAMEWORK ·
-          DIRECT ACCESS · NO PUBLIC ACCOUNTS
-        </span>
+        <div className="strip-track">
+          <span>{text}</span>
+          <span>{text}</span>
+          <span>{text}</span>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
