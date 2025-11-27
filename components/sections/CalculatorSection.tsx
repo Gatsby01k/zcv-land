@@ -13,58 +13,58 @@ export default function CalculatorSection() {
   return (
     <section className="block reveal" id="calculator">
       <div className="block-inner">
-        <div className="block-headline">
-          <div>
-            <div className="block-kicker">Illustration</div>
-            <h2 className="block-title">
-              Move the slider to see how a 25% bonus changes notional size.
-            </h2>
-          </div>
+        <header className="block-header">
+          <p className="block-kicker">Illustrative bonus math</p>
+          <h2 className="block-title">
+            How a +25% notional bonus could look in simple terms.
+          </h2>
           <p className="block-copy">
-            This calculator is illustrative only. It shows the arithmetic behind
-            a 25% bonus and should not be treated as advice, a forecast or a
-            guarantee.
+            This is an illustration only. It helps visualise how a 25% notional
+            bonus might scale against a contribution. Actual structures, bonus
+            ranges and any constraints are always defined directly with the team
+            before you decide to participate.
           </p>
-        </div>
+        </header>
+
         <div className="calc-grid">
-          <div className="calc-panel">
-            <div>
-              <div className="calc-label">Contribution amount (illustrative)</div>
-              <div className="calc-input-row">
-                <div className="calc-slider-wrap">
-                  <input
-                    type="range"
-                    min={5000}
-                    max={250000}
-                    step={5000}
-                    value={amount}
-                    onChange={(e) => setAmount(parseInt(e.target.value, 10))}
-                  />
-                </div>
-                <div className="calc-value-display">{formatUSD(amount)}</div>
-              </div>
-            </div>
-            <div className="calc-cols">
-              <div className="calc-box">
-                <div className="calc-box-label">Contribution</div>
-                <div className="calc-box-value">{formatUSD(amount)}</div>
-              </div>
-              <div className="calc-box">
-                <div className="calc-box-label">Bonus (25%)</div>
-                <div className="calc-box-value">{formatUSD(bonus)}</div>
-              </div>
-              <div className="calc-box">
-                <div className="calc-box-label">Total notional</div>
-                <div className="calc-box-value">{formatUSD(total)}</div>
-              </div>
-            </div>
+          <div className="calc-input">
+            <label htmlFor="amount">Example contribution (USD equivalent)</label>
+            <input
+              id="amount"
+              type="number"
+              min={0}
+              step={1000}
+              value={amount}
+              onChange={(e) => {
+                const value = Number(e.target.value || 0);
+                setAmount(value < 0 ? 0 : value);
+              }}
+            />
+            <p className="calc-hint">
+              Enter a notional contribution amount to see the corresponding
+              illustration at a 25% bonus.
+            </p>
           </div>
-          <p className="block-copy">
-            Actual structures, applicable bonus ranges and any limits are defined
-            directly with the team and agreed before participation. The
-            illustration simply reflects: contribution, bonus at 25%, and
-            resulting notional size.
-          </p>
+
+          <div className="calc-results">
+            <div className="calc-row">
+              <span>Contribution</span>
+              <strong>{formatUSD(amount)}</strong>
+            </div>
+            <div className="calc-row">
+              <span>Illustrative 25% bonus</span>
+              <strong>{formatUSD(bonus)}</strong>
+            </div>
+            <div className="calc-row calc-row-total">
+              <span>Resulting notional size</span>
+              <strong>{formatUSD(total)}</strong>
+            </div>
+            <p className="calc-disclaimer">
+              This example does not constitute an offer, commitment, investment
+              advice or a guarantee of any outcome. Terms, if any, are discussed
+              privately and may differ materially from this illustration.
+            </p>
+          </div>
         </div>
       </div>
     </section>
