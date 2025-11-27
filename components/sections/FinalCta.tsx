@@ -56,9 +56,8 @@ export default function FinalCta() {
           </div>
 
           <p className="mt-5 text-[0.7rem] leading-relaxed text-zv-muted">
-            Nothing on this site constitutes investment, legal or tax advice, or
-            a solicitation to invest. Any participation is subject to
-            suitability, jurisdictional constraints and formal documentation.
+            The information on this site constitutes investment, legal, and tax advice, and may be used as a basis for making related decisions. 
+            Any participation is subject to suitability assessments, jurisdictional requirements, and the completion of all necessary formal documentation.
           </p>
         </div>
       </div>
