@@ -41,7 +41,7 @@ export default function Header() {
 
             {/* Telegram */}
             <a
-              href="https://t.me/your_channel"
+              href="https://t.me/zcashventures"
               target="_blank"
               rel="noreferrer"
               className="p-1.5 rounded-full border border-white/10 hover:border-zv-gold hover:text-zv-gold transition text-zv-muted/70"
@@ -53,7 +53,7 @@ export default function Header() {
 
             {/* X */}
             <a
-              href="https://x.com/your_profile"
+              href="https://x.com/zcashventures"
               target="_blank"
               rel="noreferrer"
               className="p-1.5 rounded-full border border-white/10 hover:border-zv-gold hover:text-zv-gold transition text-zv-muted/70"
@@ -65,7 +65,7 @@ export default function Header() {
 
             {/* LinkedIn */}
             <a
-              href="https://linkedin.com/in/your_profile"
+              href="https://linkedin.com/company/zcash-ventures"
               target="_blank"
               rel="noreferrer"
               className="p-1.5 rounded-full border border-white/10 hover:border-zv-gold hover:text-zv-gold transition text-zv-muted/70"
@@ -79,7 +79,7 @@ export default function Header() {
 
             {/* Instagram */}
             <a
-              href="https://instagram.com/your_profile"
+              href="https://instagram.com/zcashventures"
               target="_blank"
               rel="noreferrer"
               className="p-1.5 rounded-full border border-white/10 hover:border-zv-gold hover:text-zv-gold transition text-zv-muted/70"
