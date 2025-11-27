@@ -1,43 +1,51 @@
 export default function StandardsSection() {
   return (
-    <section className="block reveal">
+    <section className="block block-alt reveal">
       <div className="block-inner">
-        <div className="block-headline">
-          <div>
-            <div className="block-kicker">Standards</div>
-            <h2 className="block-title">
-              A disciplined, privacy-respecting framework rather than a promise.
-            </h2>
-          </div>
+        <header className="block-header">
+          <p className="block-kicker">Standards</p>
+          <h2 className="block-title">
+            The principles we apply to every relationship and structure.
+          </h2>
           <p className="block-copy">
-            The objective is to provide a principled way to engage with a
-            privacy-first network, not to market guaranteed outcomes or remove
-            risk.
+            Zcash is about more than an asset — it is about a standard for
+            privacy, integrity and resilience. We try to reflect that in how we
+            operate and who we work with.
           </p>
-        </div>
-        <div className="features-row">
-          <article className="feature">
-            <div className="feature-label">CLARITY</div>
-            <div className="feature-title">Explicit terms</div>
-            <p className="feature-text">
-              Structures, applicable bonuses and limitations are defined in
-              advance. Ambiguity is reduced as far as reasonably possible.
+        </header>
+
+        <div className="block-grid">
+          <article className="block-card">
+            <h3>Privacy first</h3>
+            <p>
+              No public dashboards, no investor lists on social media.
+              Participation is treated as private by default.
             </p>
           </article>
-          <article className="feature">
-            <div className="feature-label">RISK</div>
-            <div className="feature-title">No guarantees</div>
-            <p className="feature-text">
-              Participation in Zcash and digital assets involves risk. The
-              program does not offer guaranteed returns or investment advice.
+
+          <article className="block-card">
+            <h3>Regulatory awareness</h3>
+            <p>
+              Structures are assessed in light of relevant jurisdictions. Where
+              we are unsure, we slow down and clarify instead of moving fast and
+              hoping for the best.
             </p>
           </article>
-          <article className="feature">
-            <div className="feature-label">PRIVACY</div>
-            <div className="feature-title">Private by design</div>
-            <p className="feature-text">
-              Communication is direct and discreet, aligned with the privacy
-              guarantees that the Zcash protocol is designed to provide.
+
+          <article className="block-card">
+            <h3>Alignment over scale</h3>
+            <p>
+              We are comfortable saying no when objectives or style do not fit.
+              A smaller group of aligned partners is better than a large,
+              noisy one.
+            </p>
+          </article>
+
+          <article className="block-card">
+            <h3>Long-term orientation</h3>
+            <p>
+              We care more about where Zcash and privacy infrastructure are in
+              5–10 years than about weekly price screens.
             </p>
           </article>
         </div>
