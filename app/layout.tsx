@@ -2,12 +2,19 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Plus_Jakarta_Sans } from "next/font/google";
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://zcash.ventures"),
   title: "Zcash.Ventures — Privacy Ventures Program",
   description:
-    "Zcash.Ventures — private, Zcash-focused privacy ventures program with structured participation and an early bonus framework up to +25%.",
+    "Zcash.Ventures is a private, Zcash-focused ventures access program for privacy-aligned capital, offering structured participation and an illustrative early bonus framework of up to +25%.",
   keywords: [
     "Zcash",
     "ZEC",
@@ -21,7 +28,7 @@ export const metadata: Metadata = {
     "crypto fund",
     "private access program",
     "venture capital",
-    "crypto ventures"
+    "crypto ventures",
   ],
   alternates: {
     canonical: "https://zcash.ventures",
@@ -31,7 +38,7 @@ export const metadata: Metadata = {
     url: "https://zcash.ventures",
     title: "Zcash.Ventures — Privacy-First Zcash Ventures Access",
     description:
-      "Private, ventures-style access to the Zcash ecosystem with a disciplined, privacy-first framework and an early bonus model up to +25%.",
+      "Private, ventures-style access to the Zcash ecosystem with a structured, privacy-first framework and an illustrative early bonus model of up to +25%.",
     siteName: "Zcash.Ventures",
     images: [
       {
@@ -46,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Zcash.Ventures — Privacy Ventures Program",
     description:
-      "Structured Zcash-focused access for privacy-aligned capital with an early bonus framework up to +25%.",
+      "Structured Zcash-focused access for privacy-aligned capital with an illustrative early bonus framework of up to +25%.",
     images: ["/og-image.png"],
   },
 };
@@ -62,8 +69,12 @@ export default function RootLayout({
     name: "Zcash.Ventures",
     url: "https://zcash.ventures",
     description:
-      "Privacy-driven ventures access program focused on the Zcash ecosystem.",
-    sameAs: ["https://z.cash"],
+      "Private, Zcash-focused ventures access for privacy-aligned capital with structured participation and an illustrative early bonus framework of up to +25%.",
+    sameAs: [
+      "https://x.com/zcashventures",
+      "https://t.me/zcashventures",
+      "https://www.linkedin.com/company/zcash-ventures",
+    ],
   };
 
   return (
@@ -75,7 +86,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>
+      <body className={plusJakarta.className}>
         <Header />
         {children}
         <Footer />
