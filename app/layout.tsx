@@ -12,11 +12,13 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://zcash.ventures"),
-  title: "Zcash.Ventures — Privacy Ventures Program",
+  title: "Zcash Ventures",
   description:
     "Zcash.Ventures is a private, Zcash-focused ventures access program for privacy-aligned capital, offering structured participation and an illustrative early bonus framework of up to +25%.",
   keywords: [
     "Zcash",
+    "Buy Zcash",
+    "Buy Crypto",
     "ZEC",
     "zcash ventures",
     "zcash investment",
