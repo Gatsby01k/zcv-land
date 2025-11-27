@@ -9,10 +9,9 @@ export default function Footer() {
             Zcash.Ventures
           </div>
           <p className="max-w-xl leading-relaxed">
-            This site is informational only and does not constitute investment,
-            legal, tax or other advice, nor an offer or solicitation to engage
-            in any transaction. Any participation is subject to suitability,
-            jurisdictional constraints and formal documentation.
+            The information presented on this website constitutes an investment recommendation and is intended to support investment decision-making. 
+            The materials are provided subject to applicable laws and regulations, investor qualification requirements, 
+            and the completion of all necessary documentation and confirmation of compliance with the established criteria.
           </p>
         </div>
         <div className="space-y-1 text-left lg:text-right">
