@@ -13,15 +13,15 @@ export default function Header() {
           onClick={() => scrollToSection("top")}
         >
           <div className="brand-logo">
-            <Image
-              src="/assets/zcash-primary-logo-white-yellow.png"
-              alt="Zcash.Ventures"
-              width={120}
-              height={32}
-              priority
-              className="brand-logo-img"
-            />
-          </div>
+  <Image
+    src="/assets/zcash-primary-logo-white-yellow.webp"
+    alt="Zcash.Ventures"
+    width={150}     // можно 160–180 если хочешь крупнее
+    height={38}
+    priority
+    className="brand-logo-img"
+  />
+</div>
           <div className="brand-meta">
             <div className="brand-name">Zcash.Ventures</div>
             <div className="brand-tag">
