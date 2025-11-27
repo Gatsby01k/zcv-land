@@ -103,8 +103,9 @@ button {
   top: 0;
   z-index: 40;
   backdrop-filter: blur(22px);
-  background: radial-gradient(circle at top left, rgba(244, 183, 40, 0.12), transparent 60%)
-      rgba(5, 5, 9, 0.9);
+  background:
+    radial-gradient(circle at top left, rgba(244, 183, 40, 0.12), transparent 60%)
+    rgba(5, 5, 9, 0.9);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -126,8 +127,11 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.06);
   background: rgba(11, 11, 18, 0.9);
   cursor: pointer;
-  transition: transform var(--transition-fast), border-color var(--transition-fast),
-    background var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .brand:hover {
@@ -186,7 +190,9 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: color var(--transition-fast), opacity var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    opacity var(--transition-fast);
 }
 
 .top-link-dot {
@@ -232,8 +238,11 @@ button {
   justify-content: center;
   font-size: 11px;
   color: var(--muted);
-  transition: border-color var(--transition-fast), color var(--transition-fast),
-    background var(--transition-fast), transform var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .social-link:hover {
@@ -251,13 +260,16 @@ button {
   padding: 6px 14px;
   border-radius: 999px;
   border: 1px solid rgba(244, 183, 40, 0.8);
-  background: radial-gradient(circle at top left, rgba(244, 183, 40, 0.18), transparent 65%)
-      linear-gradient(135deg, #151624, #0b0c14);
+  background:
+    radial-gradient(circle at top left, rgba(244, 183, 40, 0.18), transparent 65%)
+    linear-gradient(135deg, #151624, #0b0c14);
   color: var(--text);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
     background var(--transition-fast);
 }
 
@@ -272,8 +284,9 @@ button {
 .top-cta:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow-soft-sm);
-  background: radial-gradient(circle at top left, rgba(244, 183, 40, 0.28), transparent 70%)
-      linear-gradient(135deg, #1a1b2a, #0b0c14);
+  background:
+    radial-gradient(circle at top left, rgba(244, 183, 40, 0.28), transparent 70%)
+    linear-gradient(135deg, #1a1b2a, #0b0c14);
 }
 
 /* === Hero === */
@@ -360,14 +373,19 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: background var(--transition-fast), border-color var(--transition-fast),
-    transform var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    color var(--transition-fast);
   background: transparent;
 }
 
 .hero-cta-primary {
-  background: radial-gradient(circle at top left, rgba(244, 183, 40, 0.22), transparent 70%)
-      linear-gradient(135deg, #f4b728, #ffdf8c);
+  background:
+    radial-gradient(circle at top left, rgba(244, 183, 40, 0.22), transparent 70%)
+    linear-gradient(135deg, #f4b728, #ffdf8c);
   color: #111218;
   border-color: rgba(244, 183, 40, 0.9);
 }
@@ -430,8 +448,9 @@ button {
 .hero-panel {
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: radial-gradient(circle at top, rgba(244, 183, 40, 0.18), transparent 65%)
-      linear-gradient(145deg, rgba(8, 9, 16, 0.96), rgba(10, 12, 22, 0.98));
+  background:
+    radial-gradient(circle at top, rgba(244, 183, 40, 0.18), transparent 65%)
+    linear-gradient(145deg, rgba(8, 9, 16, 0.96), rgba(10, 12, 22, 0.98));
   padding: 14px 14px;
   box-shadow: var(--shadow-soft-sm);
 }
@@ -493,17 +512,12 @@ button {
   color: var(--muted);
 }
 
-/* === Блоки === */
+/* === Общие блоки === */
 
 .block {
   padding: 32px 0;
 }
 
-.block-inner {
-  @apply shell;
-}
-
-/* «Имитация» shell там, где его нет напрямую */
 .block-inner {
   max-width: 1120px;
   margin: 0 auto;
@@ -533,14 +547,7 @@ button {
   font-size: 14px;
 }
 
-.block-alt .block-inner {
-  background: radial-gradient(circle at top left, rgba(244, 183, 40, 0.18), transparent 70%)
-      linear-gradient(135deg, rgba(9, 9, 16, 0.96), rgba(11, 12, 21, 0.98));
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding-block: 28px;
-  box-shadow: var(--shadow-soft-sm);
-}
+/* Карточки / сетки */
 
 .block-cards {
   display: grid;
@@ -565,8 +572,6 @@ button {
 .block-card p {
   font-size: 13px;
 }
-
-/* === Bonus / Process / Standards (общие сетки) === */
 
 .process-grid,
 .standards-grid {
@@ -648,13 +653,18 @@ button {
   color: var(--text);
   font-size: 14px;
   outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
-    background var(--transition-fast), transform var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .calc-input input:focus {
   border-color: rgba(244, 183, 40, 0.9);
-  box-shadow: 0 0 0 1px rgba(244, 183, 40, 0.6), 0 14px 28px rgba(0, 0, 0, 0.65);
+  box-shadow:
+    0 0 0 1px rgba(244, 183, 40, 0.6),
+    0 14px 28px rgba(0, 0, 0, 0.65);
   background: rgba(11, 11, 18, 0.98);
   transform: translateY(-1px);
 }
@@ -668,8 +678,9 @@ button {
 .calc-results {
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: radial-gradient(circle at top, rgba(244, 183, 40, 0.18), transparent 70%)
-      linear-gradient(135deg, rgba(8, 9, 16, 0.98), rgba(10, 11, 20, 0.98));
+  background:
+    radial-gradient(circle at top, rgba(244, 183, 40, 0.18), transparent 70%)
+    linear-gradient(135deg, rgba(8, 9, 16, 0.98), rgba(10, 11, 20, 0.98));
   padding: 14px 16px;
   box-shadow: var(--shadow-soft-sm);
 }
@@ -753,13 +764,18 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: background var(--transition-fast), border-color var(--transition-fast),
-    transform var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    color var(--transition-fast);
 }
 
 .final-cta-actions .primary {
-  background: radial-gradient(circle at top left, rgba(244, 183, 40, 0.22), transparent 70%)
-      linear-gradient(135deg, #f4b728, #ffdf8c);
+  background:
+    radial-gradient(circle at top left, rgba(244, 183, 40, 0.22), transparent 70%)
+    linear-gradient(135deg, #f4b728, #ffdf8c);
   color: #111218;
   border-color: rgba(244, 183, 40, 0.9);
 }
@@ -807,7 +823,9 @@ footer {
 .reveal {
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  transition:
+    opacity 0.4s ease-out,
+    transform 0.4s ease-out;
 }
 
 .reveal.is-visible {
