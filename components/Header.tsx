@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { scrollToSection, openMail } from "./clientActions";
+import { scrollToSection } from "./clientActions";
 
 export default function Header() {
   return (
@@ -34,72 +34,103 @@ export default function Header() {
         </button>
 
         {/* Nav */}
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => scrollToSection("program")}
-            className="hidden rounded-full px-3 py-1.5 text-xs font-medium text-zv-muted transition hover:bg-white/5 hover:text-zv-text md:inline-flex"
-          >
-            Program
-          </button>
+        <div className="flex items-center gap-4">
 
-          <button
-            type="button"
-            onClick={() => scrollToSection("process")}
-            className="hidden rounded-full px-3 py-1.5 text-xs font-medium text-zv-muted transition hover:bg-white/5 hover:text-zv-text md:inline-flex"
-          >
-            Process
-          </button>
+          {/* ⭐ SOCIAL ICONS FIRST */}
+          <div className="hidden md:flex items-center gap-3">
 
-          {/* ⭐ Social links */}
-          <div className="hidden md:flex items-center gap-2 mr-2">
-
+            {/* Telegram */}
             <a
-              href="https://t.me/zcashventures"
+              href="https://t.me/your_channel"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-white/10 px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.18em] text-zv-muted/70 hover:text-zv-gold hover:border-zv-gold transition"
+              className="p-1.5 rounded-full border border-white/10 hover:border-zv-gold hover:text-zv-gold transition text-zv-muted/70"
             >
-              TG
+              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M3 8l10-5-2 10-3-2-2 2.5-.5-4.5L11 5" />
+              </svg>
             </a>
 
+            {/* X */}
             <a
-              href="https://x.com/zcashventures"
+              href="https://x.com/your_profile"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-white/10 px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.18em] text-zv-muted/70 hover:text-zv-gold hover:border-zv-gold transition"
+              className="p-1.5 rounded-full border border-white/10 hover:border-zv-gold hover:text-zv-gold transition text-zv-muted/70"
             >
-              X
+              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M4 4l8 8m0-8L4 12" />
+              </svg>
             </a>
 
+            {/* LinkedIn */}
             <a
-              href="https://linkedin.com/company/zcash-ventures"
+              href="https://linkedin.com/in/your_profile"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-white/10 px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.18em] text-zv-muted/70 hover:text-zv-gold hover:border-zv-gold transition"
+              className="p-1.5 rounded-full border border-white/10 hover:border-zv-gold hover:text-zv-gold transition text-zv-muted/70"
             >
-              IN
+              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="3" y="5" width="2" height="8" />
+                <circle cx="4" cy="3" r="1" />
+                <path d="M8 8v5m0-3.5c0-1.5 1-2.5 2.5-2.5S13 7.5 13 9v4" />
+              </svg>
             </a>
 
+            {/* Instagram */}
             <a
-              href="https://instagram.com/zcashventures"
+              href="https://instagram.com/your_profile"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-white/10 px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.18em] text-zv-muted/70 hover:text-zv-gold hover:border-zv-gold transition"
+              className="p-1.5 rounded-full border border-white/10 hover:border-zv-gold hover:text-zv-gold transition text-zv-muted/70"
             >
-              IG
+              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="3" y="3" width="10" height="10" rx="3" />
+                <circle cx="8" cy="8" r="2.5" />
+                <circle cx="11.5" cy="4.5" r="0.8" fill="currentColor" />
+              </svg>
+            </a>
+
+            {/* GitHub */}
+            <a
+              href="https://github.com/your_repo"
+              target="_blank"
+              rel="noreferrer"
+              className="p-1.5 rounded-full border border-white/10 hover:border-zv-gold hover:text-zv-gold transition text-zv-muted/70"
+            >
+              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M8 1.5c-3.3 0-6 2.7-6 6 0 2.5 1.6 4.6 3.8 5.4-.1-.5-.1-1.2 0-1.7.1-.6.4-1 .7-1.3-1.3-.2-2.7-.7-2.7-3 0-.7.2-1.2.6-1.7-.1-.2-.3-.8 0-1.7 0 0 .5-.2 1.8.7.5-.1 1-.2 1.6-.2s1.1.1 1.6.2c1.3-.9 1.8-.7 1.8-.7.3.9.2 1.5 0 1.7.4.5.6 1 .6 1.7 0 2.3-1.4 2.8-2.7 3 .4.3.7.9.7 1.8v1.2" />
+              </svg>
             </a>
 
           </div>
 
+          {/* Program */}
           <button
             type="button"
-            onClick={openMail}
+            onClick={() => scrollToSection("program")}
+            className="hidden md:inline-flex rounded-full px-3 py-1.5 text-xs font-medium text-zv-muted transition hover:bg-white/5 hover:text-zv-text"
+          >
+            Program
+          </button>
+
+          {/* Process */}
+          <button
+            type="button"
+            onClick={() => scrollToSection("process")}
+            className="hidden md:inline-flex rounded-full px-3 py-1.5 text-xs font-medium text-zv-muted transition hover:bg-white/5 hover:text-zv-text"
+          >
+            Process
+          </button>
+
+          {/* Contact — now a real mailto link */}
+          <a
+            href="mailto:invest@zcash.ventures"
             className="inline-flex items-center gap-2 rounded-full bg-zv-text px-4 py-2 text-xs font-semibold text-zv-bg shadow-zv-soft transition hover:bg-white"
           >
             <span>Contact</span>
             <span className="h-1.5 w-1.5 rounded-full bg-zv-bg" />
-          </button>
+          </a>
         </div>
       </div>
     </header>
