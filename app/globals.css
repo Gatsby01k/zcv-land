@@ -144,22 +144,19 @@ img {
 .brand-logo {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 20% 0, #f4b728, #f4b728 36%, #050507 78%);
-  box-shadow:
-    0 0 0 0.5px rgba(255, 255, 255, 0.2),
-    0 10px 30px rgba(0, 0, 0, 0.9);
-  overflow: hidden;
+  justify-content: flex-start;
+  width: auto;
+  height: 40px;              /* аккуратная высота для логотипа */
+  overflow: visible;
 }
 
 .brand-logo-img {
   display: block;
-  width: 28px;
-  height: auto;
+  height: 38px;              /* идеально ложится в шапку */
+  width: auto;               /* чтобы не деформировался */
 }
+
+
 
 .brand-meta {
   display: flex;
