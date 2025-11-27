@@ -1626,3 +1626,9 @@ footer {
   color: var(--muted);
 }
 
+/* Чтобы якоря не прятались под фикс-хедером */
+section[id] {
+  scroll-margin-top: 120px;
+}
+
+
