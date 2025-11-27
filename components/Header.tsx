@@ -15,7 +15,7 @@ export default function Header() {
         >
           <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-zv-bg-soft shadow-zv-soft ring-1 ring-white/10">
             <Image
-              src="/assets/zcash-logo.svg"
+              src="/assets/zcash-brandmark-yellow.webp"
               alt="Zcash.Ventures"
               width={22}
               height={22}
