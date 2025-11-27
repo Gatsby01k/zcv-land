@@ -1,46 +1,53 @@
 export default function ProgramSection() {
   return (
-    <section className="block reveal">
+    <section className="block reveal" id="program">
       <div className="block-inner">
-        <div className="block-headline">
-          <div>
-            <div className="block-kicker">Program</div>
-            <h2 className="block-title">
-              Privacy ventures access, built specifically around the Zcash
-              ecosystem.
-            </h2>
-          </div>
+        <header className="block-header">
+          <p className="block-kicker">Program</p>
+          <h2 className="block-title">
+            A focused program for Zcash-aligned, long-term capital.
+          </h2>
           <p className="block-copy">
-            The program is for allocators who view privacy infrastructure as
-            critical market infrastructure and prefer structured entry instead
-            of broad, undifferentiated crypto exposure.
+            The Zcash.Ventures program provides private, structured access to
+            ZEC-denominated venture opportunities. We are not an exchange, a
+            trading desk or a public fund. We selectively work with partners who
+            want quiet, thoughtful exposure to builders and structures that
+            deepen the Zcash ecosystem.
           </p>
-        </div>
-        <div className="features-row">
-          <article className="feature">
-            <div className="feature-label">FOCUS</div>
-            <div className="feature-title">Zcash-centric</div>
-            <p className="feature-text">
-              Participation is directed at Zcash-related structures and
-              initiatives rather than generic market-wide products.
+        </header>
+
+        <div className="block-grid">
+          <article className="block-card">
+            <h3>Curated access</h3>
+            <p>
+              We focus on a narrow set of structures where we have conviction:
+              privacy infrastructure, tooling around ZEC, and ventures that
+              materially advance the Zcash mission.
             </p>
           </article>
-          <article className="feature">
-            <div className="feature-label">STRUCTURE</div>
-            <div className="feature-title">Ventures-style terms</div>
-            <p className="feature-text">
-              Terms are negotiated, documented and non-promotional — with the
-              level of clarity expected from institutional or ventures
-              allocations.
+
+          <article className="block-card">
+            <h3>ZEC-denominated</h3>
+            <p>
+              Positions are framed in ZEC, not just in dollars. This keeps
+              incentives aligned with the asset we are all here for.
             </p>
           </article>
-          <article className="feature">
-            <div className="feature-label">PRIVACY</div>
-            <div className="feature-title">Private channel only</div>
-            <p className="feature-text">
-              No interface, accounts or feeds. All interaction happens via
-              direct communication with the team, aligned with the privacy
-              thesis of Zcash itself.
+
+          <article className="block-card">
+            <h3>Quiet by design</h3>
+            <p>
+              There are no public dashboards or performance threads. We
+              prioritize privacy, operational clarity and clean documentation.
+            </p>
+          </article>
+
+          <article className="block-card">
+            <h3>Direct relationship</h3>
+            <p>
+              You work directly with the core team, not a support queue. Terms,
+              structures and reporting are agreed in advance and remain
+              consistently professional.
             </p>
           </article>
         </div>
