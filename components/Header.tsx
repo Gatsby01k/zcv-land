@@ -5,100 +5,57 @@ import { scrollToSection, openMail } from "./clientActions";
 
 export default function Header() {
   return (
-    <header className="top">
-      <div className="top-inner">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-zv-bg/70 backdrop-blur">
+      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 lg:px-6">
+        {/* Brand */}
         <button
-          className="brand"
           type="button"
           onClick={() => scrollToSection("top")}
+          className="flex items-center gap-3 text-left text-zv-text hover:text-white"
         >
-          <div className="brand-logo">
-  <Image
-    src="/assets/zcash-primary-logo-white-yellow.webp"
-    alt="Zcash.Ventures"
-    width={150}     // можно 160–180 если хочешь крупнее
-    height={38}
-    priority
-    className="brand-logo-img"
-  />
-</div>
-          <div className="brand-meta">
-            <div className="brand-name">Zcash.Ventures</div>
-            <div className="brand-tag">
-              Private ZEC-Denominated Venture Access
+          <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-zv-bg-soft shadow-zv-soft ring-1 ring-white/10">
+            <Image
+              src="/assets/zcash-logo.svg"
+              alt="Zcash.Ventures"
+              width={22}
+              height={22}
+            />
+          </div>
+
+          <div className="hidden sm:block">
+            <div className="text-[0.68rem] uppercase tracking-[0.25em] text-zv-muted">
+              Zcash.Ventures
+            </div>
+            <div className="text-xs text-zv-text">
+              Private ZEC-denominated ventures
             </div>
           </div>
         </button>
 
-        <nav className="top-nav" aria-label="Primary navigation">
+        {/* Nav */}
+        <div className="flex items-center gap-2">
           <button
             type="button"
-            className="top-link"
             onClick={() => scrollToSection("program")}
+            className="hidden rounded-full px-3 py-1.5 text-xs font-medium text-zv-muted transition hover:bg-white/5 hover:text-zv-text md:inline-flex"
           >
             Program
           </button>
           <button
             type="button"
-            className="top-link"
-            onClick={() => scrollToSection("bonus")}
-          >
-            Bonus
-          </button>
-          <button
-            type="button"
-            className="top-link"
-            onClick={() => scrollToSection("calculator")}
-          >
-            Calculator
-          </button>
-          <button
-            type="button"
-            className="top-link"
             onClick={() => scrollToSection("process")}
+            className="hidden rounded-full px-3 py-1.5 text-xs font-medium text-zv-muted transition hover:bg-white/5 hover:text-zv-text md:inline-flex"
           >
             Process
           </button>
-        </nav>
-
-        <div className="top-actions">
-          <div className="social-links">
-            <a
-              href="https://x.com/zcashventures"
-              target="_blank"
-              rel="noreferrer"
-              className="social-link"
-              aria-label="X (Twitter)"
-            >
-              X
-            </a>
-            <a
-              href="https://t.me/zcashventures"
-              target="_blank"
-              rel="noreferrer"
-              className="social-link"
-              aria-label="Telegram"
-            >
-              TG
-            </a>
-            <a
-              href="https://www.linkedin.com/company/zcash-ventures"
-              target="_blank"
-              rel="noreferrer"
-              className="social-link"
-              aria-label="LinkedIn"
-            >
-              in
-            </a>
-          </div>
 
           <button
             type="button"
-            className="top-cta"
             onClick={openMail}
+            className="inline-flex items-center gap-2 rounded-full bg-zv-text px-4 py-2 text-xs font-semibold text-zv-bg shadow-zv-soft transition hover:bg-white"
           >
             <span>Contact</span>
-            <span className="top-cta-dot" />
+            <span className="h-1.5 w-1.5 rounded-full bg-zv-bg" />
           </button>
         </div>
       </div>
