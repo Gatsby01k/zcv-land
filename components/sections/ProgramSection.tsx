@@ -1,6 +1,8 @@
+// components/sections/ProgramSection.tsx
+
 export default function ProgramSection() {
   return (
-    <section className="block reveal" id="program">
+    <section className="block reveal">
       <div className="block-inner">
         <header className="block-header">
           <p className="block-kicker">Program</p>
