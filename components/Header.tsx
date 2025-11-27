@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { scrollToSection, openMail } from "./clientActions";
 
 export default function Header() {
@@ -12,9 +13,13 @@ export default function Header() {
           onClick={() => scrollToSection("top")}
         >
           <div className="brand-logo">
-            <img
+            <Image
               src="/assets/zcash-primary-logo-white-yellow.png"
               alt="Zcash.Ventures"
+              width={120}
+              height={32}
+              priority
+              className="brand-logo-img"
             />
           </div>
           <div className="brand-meta">
@@ -25,7 +30,7 @@ export default function Header() {
           </div>
         </button>
 
-        <nav className="top-nav">
+        <nav className="top-nav" aria-label="Primary navigation">
           <button
             type="button"
             className="top-link"
