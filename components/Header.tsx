@@ -19,21 +19,39 @@ export default function Header() {
           </div>
           <div className="brand-meta">
             <div className="brand-name">Zcash.Ventures</div>
-            <div className="brand-tag">Private ZEC-Denominated Venture Access</div>
+            <div className="brand-tag">
+              Private ZEC-Denominated Venture Access
+            </div>
           </div>
         </button>
 
         <nav className="top-nav">
-          <button type="button" className="top-link" onClick={() => scrollToSection("program")}>
+          <button
+            type="button"
+            className="top-link"
+            onClick={() => scrollToSection("program")}
+          >
             Program
           </button>
-          <button type="button" className="top-link" onClick={() => scrollToSection("bonus")}>
+          <button
+            type="button"
+            className="top-link"
+            onClick={() => scrollToSection("bonus")}
+          >
             Bonus
           </button>
-          <button type="button" className="top-link" onClick={() => scrollToSection("calculator")}>
+          <button
+            type="button"
+            className="top-link"
+            onClick={() => scrollToSection("calculator")}
+          >
             Calculator
           </button>
-          <button type="button" className="top-link" onClick={() => scrollToSection("process")}>
+          <button
+            type="button"
+            className="top-link"
+            onClick={() => scrollToSection("process")}
+          >
             Process
           </button>
         </nav>
@@ -69,7 +87,11 @@ export default function Header() {
             </a>
           </div>
 
-          <button type="button" className="top-cta" onClick={openMail}>
+          <button
+            type="button"
+            className="top-cta"
+            onClick={openMail}
+          >
             <span>Contact</span>
             <span className="top-cta-dot" />
           </button>
