@@ -1,43 +1,44 @@
 export default function BonusSection() {
   return (
-    <section className="block reveal" id="bonus">
+    <section className="block block-alt reveal" id="bonus">
       <div className="block-inner">
-        <div className="block-headline">
-          <div>
-            <div className="block-kicker">Early bonus</div>
-            <h2 className="block-title">
-              Up to +25% bonus for early contributors to the current program.
-            </h2>
-          </div>
+        <header className="block-header">
+          <p className="block-kicker">Early partner framework</p>
+          <h2 className="block-title">Up to +25% notional bonus for aligned early participation.</h2>
           <p className="block-copy">
-            The bonus framework is designed to recognise early, conviction-driven
-            participation. Levels depend on contribution size, structure and
-            horizon and are always defined before any decision.
+            For the current program, early, conviction-driven partners may be
+            eligible for a notional bonus of up to 25% on their contributed
+            amount, subject to structure, size and horizon. The goal is simple:
+            recognise those who are prepared to back Zcash-centric work before
+            it becomes consensus.
           </p>
-        </div>
-        <div className="features-row">
-          <article className="feature">
-            <div className="feature-label">ALIGNMENT</div>
-            <div className="feature-title">Volume-based ranges</div>
-            <p className="feature-text">
-              Bonus ranges are calibrated to contribution size so incentives align
-              with commitment, not short-term marketing.
+        </header>
+
+        <div className="block-grid">
+          <article className="block-card">
+            <h3>Structured, not improvised</h3>
+            <p>
+              Bonus ranges, vesting and any limits are defined in writing before
+              you decide to participate. There are no surprise changes after
+              the fact.
             </p>
           </article>
-          <article className="feature">
-            <div className="feature-label">CLARITY</div>
-            <div className="feature-title">Documented mechanics</div>
-            <p className="feature-text">
-              Applicable bonus, timing and any conditions are laid out and agreed
-              in advance. There are no opaque multipliers or hidden levers.
+
+          <article className="block-card">
+            <h3>Aligned with duration</h3>
+            <p>
+              Longer-term, thoughtfully sized positions may qualify for stronger
+              bonus terms. We are building around multi-year horizons, not
+              quarterly charts.
             </p>
           </article>
-          <article className="feature">
-            <div className="feature-label">FUTURE</div>
-            <div className="feature-title">Optional prioritisation</div>
-            <p className="feature-text">
-              Early contributors may be prioritised when future Zcash-focused
-              initiatives or structures are considered.
+
+          <article className="block-card">
+            <h3>Illustrative, not promissory</h3>
+            <p>
+              Any examples you see here are purely illustrative. Actual terms
+              are discussed privately and depend on jurisdiction, structure and
+              suitability.
             </p>
           </article>
         </div>
