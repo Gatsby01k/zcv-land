@@ -1,103 +1,112 @@
 "use client";
 
 import { useEffect } from "react";
-import { openMail, scrollToSection } from "@/components/clientActions";
+import { scrollToSection, openMail } from "../clientActions";
 
 export default function Hero() {
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const elements = document.querySelectorAll<HTMLElement>(".reveal");
+
+    const items = document.querySelectorAll<HTMLElement>(".reveal");
     if (!("IntersectionObserver" in window)) {
-      elements.forEach((el) => el.classList.add("is-visible"));
+      items.forEach((el) => el.classList.add("is-visible"));
       return;
     }
+
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
+            obs.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.16 }
     );
-    elements.forEach((el) => observer.observe(el));
+
+    items.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="hero">
-      <div className="hero-left reveal">
-        <div className="eyebrow">
-          <span className="eyebrow-dot" />
-          <span>Privacy-driven ventures access</span>
-        </div>
-        <h1 className="hero-title">
-          Structured access to <span>Zcash</span> for privacy-aligned capital.
-        </h1>
-        <p className="hero-subtitle">
-          Zcash.Ventures is a private, ventures-style program for investors who
-          treat privacy infrastructure as a long-term thesis rather than
-          short-term volatility.
-        </p>
-        <p className="hero-highlight">
-          Early participants may receive up to <strong>+25% bonus</strong> on
-          their contribution under the current program.
-        </p>
-        <div className="hero-actions">
-          <button className="btn-primary" type="button" onClick={openMail}>
-            <span>Contact the team</span>
-            <span>↗</span>
-          </button>
-          <button
-            className="btn-ghost"
-            type="button"
-            onClick={() => scrollToSection("process")}
-          >
-            <span>How it works</span>
-          </button>
-        </div>
-        <div className="hero-meta">
-          <span>PRIVACY-FIRST VENTURES</span>
-          <span>ZCASH-FOCUSED ACCESS</span>
-        </div>
-      </div>
-
-      <aside className="hero-right reveal">
-        <div className="hero-right-inner">
-          <div className="hero-mark-row">
-            <div className="hero-mark">
-              <div className="hero-mark-logo">
-                <img
-                  src="/assets/zcash-brandmark-yellow.png"
-                  alt="Zcash logo"
-                />
-              </div>
-              <div>
-                <div className="hero-mark-text-main">ZCASH</div>
-                <div className="hero-mark-text-sub">PRIVACY NETWORK</div>
-              </div>
-            </div>
-            <div className="hero-chip">ZERO-KNOWLEDGE · PRIVACY</div>
-          </div>
-          <p className="hero-right-copy">
-            The program intentionally avoids the “platform” model. There are no
-            public dashboards, accounts or feeds — only a private channel,
-            negotiated structures and clearly documented terms.
+    <section className="hero" id="top">
+      <div className="shell hero-inner">
+        <div className="hero-main reveal">
+          <p className="hero-kicker">Private ZEC-Denominated Ventures</p>
+          <h1 className="hero-title">
+            Discreet access to curated Zcash-focused
+            <span className="hero-title-accent"> venture structures.</span>
+          </h1>
+          <p className="hero-copy">
+            Zcash.Ventures works with a small group of long-term, privacy-aligned
+            partners to build and scale ZEC-denominated venture positions off-exchange.
+            No public dashboards. No social hype. Just structured access and clear
+            alignment.
           </p>
-          <div className="hero-right-footer">
-            <div>
-              <div className="hero-right-label">Channel</div>
-              <div className="hero-right-value">invest@zcash.ventures</div>
+
+          <div className="hero-actions">
+            <button
+              type="button"
+              className="hero-cta-primary"
+              onClick={() => scrollToSection("program")}
+            >
+              Explore the program
+            </button>
+            <button
+              type="button"
+              className="hero-cta-secondary"
+              onClick={openMail}
+            >
+              Speak with the team
+            </button>
+          </div>
+
+          <div className="hero-points">
+            <div className="hero-point">
+              <span className="hero-point-label">ZEC-native</span>
+              <p>
+                Structures are designed around ZEC exposure, not as an afterthought
+                in a generic crypto basket.
+              </p>
             </div>
-            <div style={{ textAlign: "right" }}>
-              <div className="hero-right-label">Format</div>
-              <div className="hero-right-value">Private ventures program</div>
+            <div className="hero-point">
+              <span className="hero-point-label">Private by default</span>
+              <p>
+                No public accounts, no leaderboard culture. Participation is handled
+                quietly and directly.
+              </p>
+            </div>
+            <div className="hero-point">
+              <span className="hero-point-label">Selective access</span>
+              <p>
+                We work with a limited number of committed, long-term partners who
+                understand Zcash and privacy.
+              </p>
             </div>
           </div>
         </div>
-      </aside>
+
+        <aside className="hero-side reveal">
+          <div className="hero-panel">
+            <div className="hero-panel-label">Why now</div>
+            <ul className="hero-panel-list">
+              <li>Regenerative interest in privacy infrastructure.</li>
+              <li>Maturing Zcash tooling and ecosystem.</li>
+              <li>Attractive entry terms for long-duration capital.</li>
+            </ul>
+          </div>
+
+          <div className="hero-panel hero-panel-soft">
+            <div className="hero-panel-label">Focus</div>
+            <ul className="hero-panel-list">
+              <li>ZEC-denominated venture structures.</li>
+              <li>Aligned founders and privacy primitives.</li>
+              <li>Low-noise, high-intent relationships.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
     </section>
   );
 }
