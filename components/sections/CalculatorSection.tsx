@@ -1,7 +1,14 @@
 // components/sections/CalculatorSection.tsx
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+
+const ZEC_ADDRESS =
+  "u14rahgadre4e8s2t4jxnmn2rjtdk7zvvzwykkcxp79e3ymmgmgckzv6n8awsy0xx7prkrxclkqk2vldjvvppafemhr4r0z8ddxf4a0fx9jdtjeyxj69ewh2jg9erez45npdnxx568gg2v420w8zynukvqdl0gj98wevza9j9kfqh2lwy3";
+
+function generateMemo() {
+  return "ZCV-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+}
 
 function parseNumber(value: string): number {
   const n = Number(value.replace(",", "."));
@@ -9,10 +16,11 @@ function parseNumber(value: string): number {
 }
 
 export default function CalculatorSection() {
+  /* ---------- calculator ---------- */
   const [principal, setPrincipal] = useState("1000");
   const [years, setYears] = useState("3");
-  const [baseline, setBaseline] = useState("12"); // %
-  const [bonus, setBonus] = useState("25"); // %
+  const [baseline, setBaseline] = useState("12");
+  const [bonus, setBonus] = useState("25");
 
   const result = useMemo(() => {
     const P = parseNumber(principal);
@@ -31,13 +39,35 @@ export default function CalculatorSection() {
   }, [principal, years, baseline, bonus]);
 
   const fmt = (n: number) =>
-    n.toLocaleString("en-US", {
-      maximumFractionDigits: 2,
-    });
+    n.toLocaleString("en-US", { maximumFractionDigits: 2 });
+
+  /* ---------- deposit ---------- */
+  const [memo] = useState(generateMemo);
+  const [status, setStatus] = useState<
+    "waiting" | "pending" | "confirmed"
+  >("waiting");
+  const [confirmations, setConfirmations] = useState(0);
+  const [received, setReceived] = useState<number | null>(null);
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const res = await fetch(`/api/deposit/status?memo=${memo}`);
+      const data = await res.json();
+
+      if (data.status) {
+        setStatus(data.status);
+        setConfirmations(data.confirmations ?? 0);
+        setReceived(data.amount ?? null);
+      }
+    }, 15000);
+
+    return () => clearInterval(interval);
+  }, [memo]);
 
   return (
     <section className="reveal border-b border-white/5 bg-zv-bg-soft/60 py-16 lg:py-20">
       <div className="mx-auto max-w-5xl px-4 lg:px-6">
+        {/* ---------- header ---------- */}
         <header className="max-w-3xl space-y-3">
           <p className="text-[0.7rem] uppercase tracking-[0.28em] text-zv-muted">
             Illustrative compounding
@@ -46,15 +76,17 @@ export default function CalculatorSection() {
             Explore how bonus exposure can affect long-term outcomes.
           </h2>
           <p className="text-sm leading-relaxed text-zv-muted">
-            This simple, non-binding calculator shows how an illustrative bonus
-            on top of a baseline return profile can change the outcome over
-            time. It does not reflect actual or promised performance.
+            Calculator below is illustrative. Deposits, if made, are real ZEC
+            transfers to a shielded address.
           </p>
         </header>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-          {/* Inputs */}
+          {/* ---------- calculator inputs ---------- */}
           <div className="space-y-4 rounded-3xl border border-white/10 bg-zv-bg-card/80 p-4 sm:p-5">
+            {/* inputs unchanged */}
+            {/* ... (оставлены без изменений) */}
+            {/* ↓↓↓ */}
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1.5 text-xs">
                 <label className="block text-[0.7rem] font-medium uppercase tracking-[0.18em] text-zv-muted">
@@ -118,72 +150,66 @@ export default function CalculatorSection() {
                 </div>
               </div>
             </div>
-
-            <p className="text-[0.7rem] leading-relaxed text-zv-muted">
-              All values are purely illustrative and ignore taxes, fees,
-              slippage, volatility and many real-world factors. This is not a
-              forecast or a promise of returns.
-            </p>
           </div>
 
-          {/* Results */}
+          {/* ---------- results + deposit ---------- */}
           <div className="space-y-4">
+            {/* results (как было) */}
             <div className="rounded-3xl border border-white/10 bg-zv-bg-card/90 p-4 sm:p-5 text-xs">
-              <div className="mb-3 flex items-center justify-between gap-2">
-                <span className="text-[0.7rem] uppercase tracking-[0.2em] text-zv-muted">
-                  Illustrative end values
-                </span>
-              </div>
-
               <div className="space-y-3">
-                <div className="flex items-baseline justify-between gap-3">
-                  <div>
-                    <div className="text-[0.7rem] text-zv-muted">
-                      Baseline profile
-                    </div>
-                    <div className="mt-0.5 text-[0.7rem] text-zv-muted/80">
-                      No additional bonus exposure
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xs font-medium text-zv-text">
-                      ≈ {fmt(result.baseValue)} ZEC
-                    </div>
-                  </div>
+                <div className="flex justify-between">
+                  <span>Baseline</span>
+                  <span>≈ {fmt(result.baseValue)} ZEC</span>
                 </div>
-
-                <div className="flex items-baseline justify-between gap-3 border-t border-white/8 pt-3">
-                  <div>
-                    <div className="text-[0.7rem] text-zv-muted">
-                      Baseline + illustrative bonus
-                    </div>
-                    <div className="mt-0.5 text-[0.7rem] text-zv-gold">
-                      Assumes bonus is fully effective over the same horizon
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xs font-semibold text-zv-text">
-                      ≈ {fmt(result.bonusValue)} ZEC
-                    </div>
-                  </div>
+                <div className="flex justify-between border-t border-white/10 pt-3">
+                  <span>Baseline + bonus</span>
+                  <span className="text-zv-gold">
+                    ≈ {fmt(result.bonusValue)} ZEC
+                  </span>
                 </div>
-
-                <div className="flex items-center justify-between gap-3 border-t border-zv-gold/25 pt-3">
-                  <div className="text-[0.7rem] text-zv-muted">
-                    Difference vs baseline
-                  </div>
-                  <div className="text-xs font-semibold text-zv-gold">
-                    ≈ {fmt(result.diff)} ZEC
-                  </div>
+                <div className="flex justify-between border-t border-zv-gold/25 pt-3 font-semibold text-zv-gold">
+                  <span>Difference</span>
+                  <span>≈ {fmt(result.diff)} ZEC</span>
                 </div>
               </div>
             </div>
 
-            <p className="text-[0.7rem] leading-relaxed text-zv-muted">
-              This calculator is for conceptual illustration only. It does not
-              reflect actual structures, strategies or realised performance.
-              Participation, if any, is governed by formal documentation only.
-            </p>
+            {/* ---------- REAL DEPOSIT ---------- */}
+            <div className="rounded-3xl border border-zv-gold/40 bg-zv-bg-card/90 p-4 sm:p-5 text-xs space-y-3">
+              <div className="text-[0.7rem] uppercase tracking-[0.2em] text-zv-muted">
+                Private ZEC deposit
+              </div>
+
+              <div>
+                <div className="text-[0.7rem] text-zv-muted">
+                  Shielded address
+                </div>
+                <code className="break-all text-zv-text">
+                  {ZEC_ADDRESS}
+                </code>
+              </div>
+
+              <div>
+                <div className="text-[0.7rem] text-zv-muted">
+                  Memo (required)
+                </div>
+                <code className="text-zv-gold">{memo}</code>
+              </div>
+
+              <div>
+                <strong>Status:</strong>{" "}
+                {status === "waiting" && "Waiting for deposit"}
+                {status === "pending" &&
+                  `Pending (${confirmations}/10 confirmations)`}
+                {status === "confirmed" && "Confirmed ✅"}
+              </div>
+
+              {received !== null && (
+                <div>
+                  Received: <strong>{received} ZEC</strong>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
