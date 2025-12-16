@@ -1,7 +1,7 @@
 // components/sections/CalculatorSection.tsx
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 /* ================== CONSTANTS ================== */
 
@@ -31,7 +31,7 @@ function copy(text: string, setCopied: (v: boolean) => void) {
 /* ================== COMPONENT ================== */
 
 export default function CalculatorSection() {
-  /* ---------- calculator state ---------- */
+  /* ---------- calculator ---------- */
   const [principal, setPrincipal] = useState("1000");
   const [years, setYears] = useState("3");
   const [baseline, setBaseline] = useState("12");
@@ -54,30 +54,31 @@ export default function CalculatorSection() {
   }, [principal, years, baseline, bonus]);
 
   const fmt = (n: number) =>
-    n.toLocaleString("en-US", { maximumFractionDigits: 2 });
+    n.toLocaleString(undefined, { maximumFractionDigits: 2 });
 
-  /* ---------- deposit state ---------- */
+  /* ---------- deposit ---------- */
   const [memo] = useState(generateMemo);
-  const [status, setStatus] = useState<
-    "waiting" | "pending" | "confirmed"
-  >("waiting");
+  const [status, setStatus] = useState<"waiting" | "pending" | "confirmed">(
+    "waiting"
+  );
   const [confirmations, setConfirmations] = useState(0);
   const [received, setReceived] = useState<number | null>(null);
 
   const [addrCopied, setAddrCopied] = useState(false);
   const [memoCopied, setMemoCopied] = useState(false);
 
-  /* ---------- polling ---------- */
   useEffect(() => {
     const interval = setInterval(async () => {
-      const res = await fetch(`/api/deposit/status?memo=${memo}`);
-      const data = await res.json();
+      try {
+        const res = await fetch(`/api/deposit/status?memo=${memo}`);
+        const data = await res.json();
 
-      if (data.status) {
-        setStatus(data.status);
-        setConfirmations(data.confirmations ?? 0);
-        setReceived(data.amount ?? null);
-      }
+        if (data?.status) {
+          setStatus(data.status);
+          setConfirmations(data.confirmations ?? 0);
+          setReceived(data.amount ?? null);
+        }
+      } catch {}
     }, 15000);
 
     return () => clearInterval(interval);
@@ -86,175 +87,193 @@ export default function CalculatorSection() {
   /* ================== RENDER ================== */
 
   return (
-    <section className="reveal border-b border-white/5 bg-zv-bg-soft/60 py-16 lg:py-20">
-      <div className="mx-auto max-w-5xl px-4 lg:px-6">
-        {/* ---------- HEADER ---------- */}
-        <header className="max-w-3xl space-y-3">
-          <p className="text-[0.7rem] uppercase tracking-[0.28em] text-zv-muted">
-            Illustrative compounding
+    <section className="reveal border-t border-white/5 py-32">
+      <div className="mx-auto max-w-6xl px-6">
+        {/* Header */}
+        <header className="mb-20 max-w-3xl space-y-6">
+          <p className="text-xs uppercase tracking-[0.28em] text-zv-muted">
+            Illustration
           </p>
-          <h2 className="text-balance text-2xl font-semibold text-zv-text sm:text-3xl">
-            Explore how bonus exposure can affect long-term outcomes.
+          <h2 className="text-balance">
+            Illustrative compounding with optional bonus exposure
           </h2>
-          <p className="text-sm leading-relaxed text-zv-muted">
-            The calculator is illustrative. Deposits, if made, are real ZEC
-            transfers to a shielded address.
+          <p className="text-zv-text">
+            This example illustrates potential outcomes under simplified
+            assumptions. It is not a forecast and does not represent guaranteed
+            results.
           </p>
         </header>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-          {/* ================== INPUTS ================== */}
-          <div className="space-y-4 rounded-3xl border border-white/10 bg-zv-bg-card/80 p-4 sm:p-5">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-1.5 text-xs">
-                <label className="block text-[0.7rem] font-medium uppercase tracking-[0.18em] text-zv-muted">
-                  Initial ZEC position
-                </label>
-                <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-zv-bg px-3 py-2">
-                  <span className="text-[0.7rem] text-zv-muted">ZEC</span>
-                  <input
-                    value={principal}
-                    onChange={(e) => setPrincipal(e.target.value)}
-                    className="flex-1 bg-transparent text-sm text-zv-text outline-none"
-                    inputMode="decimal"
-                  />
-                </div>
-              </div>
+        <div className="grid gap-16 lg:grid-cols-2">
+          {/* Inputs */}
+          <div className="space-y-8">
+            <Field label="Illustrative principal (ZEC)">
+              <input
+                value={principal}
+                onChange={(e) => setPrincipal(e.target.value)}
+                className="field"
+              />
+            </Field>
 
-              <div className="space-y-1.5 text-xs">
-                <label className="block text-[0.7rem] font-medium uppercase tracking-[0.18em] text-zv-muted">
-                  Horizon
-                </label>
-                <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-zv-bg px-3 py-2">
-                  <input
-                    value={years}
-                    onChange={(e) => setYears(e.target.value)}
-                    className="flex-1 bg-transparent text-sm text-zv-text outline-none"
-                    inputMode="decimal"
-                  />
-                  <span className="text-[0.7rem] text-zv-muted">years</span>
-                </div>
-              </div>
-            </div>
+            <Field label="Time horizon (years)">
+              <input
+                value={years}
+                onChange={(e) => setYears(e.target.value)}
+                className="field"
+              />
+            </Field>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-1.5 text-xs">
-                <label className="block text-[0.7rem] font-medium uppercase tracking-[0.18em] text-zv-muted">
-                  Baseline annual profile
-                </label>
-                <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-zv-bg px-3 py-2">
-                  <input
-                    value={baseline}
-                    onChange={(e) => setBaseline(e.target.value)}
-                    className="flex-1 bg-transparent text-sm text-zv-text outline-none"
-                    inputMode="decimal"
-                  />
-                  <span className="text-[0.7rem] text-zv-muted">% / year</span>
-                </div>
-              </div>
+            <Field label="Baseline annual growth (%)">
+              <input
+                value={baseline}
+                onChange={(e) => setBaseline(e.target.value)}
+                className="field"
+              />
+            </Field>
 
-              <div className="space-y-1.5 text-xs">
-                <label className="block text-[0.7rem] font-medium uppercase tracking-[0.18em] text-zv-muted">
-                  Illustrative bonus
-                </label>
-                <div className="flex items-center gap-2 rounded-2xl border border-zv-gold/40 bg-zv-bg px-3 py-2">
-                  <input
-                    value={bonus}
-                    onChange={(e) => setBonus(e.target.value)}
-                    className="flex-1 bg-transparent text-sm text-zv-text outline-none"
-                    inputMode="decimal"
-                  />
-                  <span className="text-[0.7rem] text-zv-gold">% / year</span>
-                </div>
-              </div>
-            </div>
+            <Field label="Illustrative bonus (%)">
+              <input
+                value={bonus}
+                onChange={(e) => setBonus(e.target.value)}
+                className="field border-zv-gold/40"
+              />
+            </Field>
           </div>
 
-          {/* ================== RESULTS + DEPOSIT ================== */}
-          <div className="space-y-4">
-            {/* Results */}
-            <div className="rounded-3xl border border-white/10 bg-zv-bg-card/90 p-4 sm:p-5 text-xs space-y-3">
-              <div className="flex justify-between">
-                <span className="text-zv-muted">Baseline</span>
-                <span>≈ {fmt(result.baseValue)} ZEC</span>
+          {/* Results */}
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10">
+            <div className="space-y-10">
+              <div>
+                <p className="text-sm uppercase tracking-wide text-zv-muted">
+                  Baseline outcome
+                </p>
+                <div className="mt-2 text-4xl font-semibold">
+                  {fmt(result.baseValue)} ZEC
+                </div>
               </div>
-              <div className="flex justify-between border-t border-white/10 pt-3">
-                <span className="text-zv-muted">Baseline + bonus</span>
-                <span className="text-zv-gold">
-                  ≈ {fmt(result.bonusValue)} ZEC
-                </span>
+
+              <div>
+                <p className="text-sm uppercase tracking-wide text-zv-muted">
+                  With illustrative bonus
+                </p>
+                <div className="mt-2 text-4xl font-semibold text-zv-gold">
+                  {fmt(result.bonusValue)} ZEC
+                </div>
               </div>
-              <div className="flex justify-between border-t border-zv-gold/25 pt-3 font-semibold text-zv-gold">
-                <span>Difference</span>
-                <span>≈ {fmt(result.diff)} ZEC</span>
-              </div>
+
+              <p className="text-sm leading-relaxed text-zv-muted">
+                Difference: ≈ {fmt(result.diff)} ZEC
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Optional deposit */}
+        <div className="mt-20 max-w-4xl">
+          <p className="mb-6 text-xs uppercase tracking-[0.28em] text-zv-muted">
+            Optional: private ZEC deposit
+          </p>
+
+          <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 space-y-6">
+            {/* Address */}
+            <Row
+              label="Shielded deposit address"
+              value={ZEC_ADDRESS}
+              mono
+              copied={addrCopied}
+              onCopy={() => copy(ZEC_ADDRESS, setAddrCopied)}
+            />
+
+            {/* Memo */}
+            <Row
+              label="Memo (required)"
+              value={memo}
+              mono
+              accent
+              copied={memoCopied}
+              onCopy={() => copy(memo, setMemoCopied)}
+            />
+
+            {/* Status */}
+            <div className="flex justify-between text-sm">
+              <span className="text-zv-muted">Status</span>
+              <span>
+                {status === "waiting" && "Waiting for deposit"}
+                {status === "pending" &&
+                  `Pending (${confirmations}/${REQUIRED_CONFIRMATIONS})`}
+                {status === "confirmed" && (
+                  <span className="text-zv-gold">Confirmed ✓</span>
+                )}
+              </span>
             </div>
 
-            {/* Deposit */}
-            <div className="rounded-3xl border border-zv-gold/40 bg-zv-bg-card/90 p-4 sm:p-5 text-xs space-y-4">
-              <div className="text-[0.7rem] uppercase tracking-[0.2em] text-zv-muted">
-                Private ZEC deposit
-              </div>
-
-              {/* Address */}
-              <div className="space-y-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-[0.7rem] text-zv-muted">
-                    Shielded deposit address
-                  </span>
-                  <button
-                    onClick={() => copy(ZEC_ADDRESS, setAddrCopied)}
-                    className="rounded-lg border border-white/10 px-2 py-0.5 text-[0.65rem] text-zv-muted hover:border-zv-gold/50 hover:text-zv-gold transition"
-                  >
-                    {addrCopied ? "Copied" : "Copy"}
-                  </button>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-zv-bg px-3 py-2 font-mono text-[0.7rem] break-all">
-                  {ZEC_ADDRESS}
-                </div>
-              </div>
-
-              {/* Memo */}
-              <div className="space-y-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-[0.7rem] text-zv-muted">
-                    Memo (required)
-                  </span>
-                  <button
-                    onClick={() => copy(memo, setMemoCopied)}
-                    className="rounded-lg border border-white/10 px-2 py-0.5 text-[0.65rem] text-zv-muted hover:border-zv-gold/50 hover:text-zv-gold transition"
-                  >
-                    {memoCopied ? "Copied" : "Copy"}
-                  </button>
-                </div>
-                <div className="rounded-2xl border border-zv-gold/30 bg-zv-bg px-3 py-2 font-mono text-[0.7rem] text-zv-gold">
-                  {memo}
-                </div>
-              </div>
-
-              {/* Status */}
-              <div className="flex items-center justify-between border-t border-white/10 pt-3">
-                <span className="text-[0.7rem] text-zv-muted">Status</span>
-                <span className="text-[0.7rem] font-medium">
-                  {status === "waiting" && "Waiting for deposit"}
-                  {status === "pending" &&
-                    `Pending (${confirmations}/${REQUIRED_CONFIRMATIONS})`}
-                  {status === "confirmed" && (
-                    <span className="text-zv-gold">Confirmed ✓</span>
-                  )}
-                </span>
-              </div>
-
-              {received !== null && (
-                <div className="text-right text-[0.7rem] text-zv-muted">
-                  Received{" "}
-                  <span className="text-zv-text">{received} ZEC</span>
-                </div>
-              )}
-            </div>
+            {received !== null && (
+              <p className="text-sm text-zv-muted">
+                Received:{" "}
+                <span className="text-zv-text">{received} ZEC</span>
+              </p>
+            )}
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+/* ================== UI HELPERS ================== */
+
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="block space-y-2">
+      <span className="text-sm text-zv-muted">{label}</span>
+      {children}
+    </label>
+  );
+}
+
+function Row({
+  label,
+  value,
+  onCopy,
+  copied,
+  mono,
+  accent,
+}: {
+  label: string;
+  value: string;
+  onCopy: () => void;
+  copied: boolean;
+  mono?: boolean;
+  accent?: boolean;
+}) {
+  return (
+    <div className="space-y-2">
+      <div className="flex justify-between text-sm text-zv-muted">
+        <span>{label}</span>
+        <button
+          onClick={onCopy}
+          className="text-xs hover:text-zv-gold transition"
+        >
+          {copied ? "Copied" : "Copy"}
+        </button>
+      </div>
+      <div
+        className={`rounded-xl border px-4 py-3 text-sm break-all ${
+          mono ? "font-mono" : ""
+        } ${
+          accent
+            ? "border-zv-gold/40 text-zv-gold"
+            : "border-white/10 text-zv-text"
+        }`}
+      >
+        {value}
+      </div>
+    </div>
   );
 }
