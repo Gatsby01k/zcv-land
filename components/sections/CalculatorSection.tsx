@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 /* ================== CONSTANTS ================== */
 
 const ZEC_ADDRESS =
-  "u1myg6r23865zy2jmv3xkpn9c62z0dx5arzdhpsdw78wv05zm4agvhs40juj303g4y92prvhf0f5qp0ahh4g2l0mpfhw725ulp6zvtapja6lzjj48rv8sykr53t2yyr3y5z50cszqstf2l6587fjtfrwrxwurslak359eff3kwdcxkmauw";
+  "u14rahgadre4e8s2t4jxnmn2rjtdk7zvvzwykkcxp79e3ymmgmgckzv6n8awsy0xx7prkrxclkqk2vldjvvppafemhr4r0z8ddxf4a0fx9jdtjeyxj69ewh2jg9erez45npdnxx568gg2v420w8zynukvqdl0gj98wevza9j9kfqh2lwy3";
 
 const REQUIRED_CONFIRMATIONS = 10;
 
@@ -84,8 +84,6 @@ export default function CalculatorSection() {
     return () => clearInterval(interval);
   }, [memo]);
 
-  /* ================== RENDER ================== */
-
   return (
     <section className="reveal border-t border-white/5 py-32">
       <div className="mx-auto max-w-6xl px-6">
@@ -103,7 +101,7 @@ export default function CalculatorSection() {
           </p>
         </header>
 
-        {/* ================== CALCULATOR ================== */}
+        {/* CALC */}
         <div className="grid gap-20 lg:grid-cols-2">
           {/* LEFT */}
           <div>
@@ -114,13 +112,14 @@ export default function CalculatorSection() {
                   Illustrative ZEC amount
                 </span>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-baseline gap-4">
                   <span className="text-2xl text-zv-muted">ZEC</span>
                   <input
                     value={principal}
                     onChange={(e) => setPrincipal(e.target.value)}
                     placeholder="1000"
-                    className="w-full bg-transparent text-4xl font-semibold text-zv-text outline-none placeholder:text-zv-muted/40"
+                    inputMode="decimal"
+                    className="w-full bg-transparent text-4xl font-semibold text-zv-text outline-none placeholder:text-zv-muted/40 [font-variant-numeric:tabular-nums]"
                   />
                 </div>
 
@@ -130,8 +129,8 @@ export default function CalculatorSection() {
               </label>
             </div>
 
-            {/* ASSUMPTIONS */}
-            <div className="mt-14 grid gap-8 lg:grid-cols-3">
+            {/* ASSUMPTIONS — FIXED */}
+            <div className="mt-14 grid gap-8 sm:grid-cols-3">
               <Assumption
                 label="Time horizon"
                 suffix="years"
@@ -154,19 +153,19 @@ export default function CalculatorSection() {
             </div>
           </div>
 
-          {/* RIGHT — RESULT */}
+          {/* RIGHT */}
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-12">
             <p className="text-sm uppercase tracking-wide text-zv-muted">
               Illustrative outcome
             </p>
 
-            <div className="mt-8 text-5xl font-semibold text-zv-gold">
+            <div className="mt-8 text-5xl font-semibold text-zv-gold [font-variant-numeric:tabular-nums]">
               {fmt(result.bonusValue)} ZEC
             </div>
 
             <p className="mt-4 text-zv-muted">
               Compared to baseline:&nbsp;
-              <span className="text-zv-text font-medium">
+              <span className="text-zv-text font-medium [font-variant-numeric:tabular-nums]">
                 +{fmt(result.diff)} ZEC
               </span>
             </p>
@@ -178,7 +177,7 @@ export default function CalculatorSection() {
           </div>
         </div>
 
-        {/* ================== DEPOSIT ================== */}
+        {/* DEPOSIT */}
         <div className="mt-24 max-w-4xl">
           <p className="mb-6 text-zv-text">
             If this structure aligns with your objectives, participation is
@@ -244,22 +243,26 @@ function Assumption({
   accent?: boolean;
 }) {
   return (
-    <label className="block space-y-3">
-      <span className="text-xs uppercase tracking-[0.2em] text-zv-muted">
+    <label className="block">
+      <span className="block whitespace-nowrap text-[11px] uppercase tracking-[0.24em] text-zv-muted">
         {label}
       </span>
 
       <div
-        className={`flex items-center h-14 gap-3 rounded-xl border px-4 ${
-          accent ? "border-zv-gold/40" : "border-white/10"
-        }`}
+        className={[
+          "mt-3 flex h-14 items-center justify-between gap-3 rounded-2xl border px-4",
+          "bg-zv-bg/40",
+          accent ? "border-zv-gold/45" : "border-white/10",
+        ].join(" ")}
       >
         <input
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full bg-transparent text-xl font-medium text-zv-text outline-none"
+          inputMode="decimal"
+          className="min-w-0 flex-1 bg-transparent text-2xl font-semibold text-zv-text outline-none [font-variant-numeric:tabular-nums]"
         />
-        <span className="text-sm text-zv-muted whitespace-nowrap">
+
+        <span className="shrink-0 whitespace-nowrap text-sm text-zv-muted">
           {suffix}
         </span>
       </div>
@@ -293,14 +296,15 @@ function Row({
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
+
       <div
-        className={`rounded-xl border px-4 py-3 text-sm break-all ${
-          mono ? "font-mono" : ""
-        } ${
+        className={[
+          "rounded-xl border px-4 py-3 text-sm break-all",
+          mono ? "font-mono" : "",
           accent
             ? "border-zv-gold/40 text-zv-gold"
-            : "border-white/10 text-zv-text"
-        }`}
+            : "border-white/10 text-zv-text",
+        ].join(" ")}
       >
         {value}
       </div>
