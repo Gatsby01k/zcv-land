@@ -3,20 +3,35 @@
 
 import { useState, useMemo, useEffect } from "react";
 
+/* ================== CONSTANTS ================== */
+
 const ZEC_ADDRESS =
   "u14rahgadre4e8s2t4jxnmn2rjtdk7zvvzwykkcxp79e3ymmgmgckzv6n8awsy0xx7prkrxclkqk2vldjvvppafemhr4r0z8ddxf4a0fx9jdtjeyxj69ewh2jg9erez45npdnxx568gg2v420w8zynukvqdl0gj98wevza9j9kfqh2lwy3";
 
-function generateMemo() {
-  return "ZCV-" + Math.random().toString(36).slice(2, 8).toUpperCase();
-}
+const REQUIRED_CONFIRMATIONS = 10;
+
+/* ================== HELPERS ================== */
 
 function parseNumber(value: string): number {
   const n = Number(value.replace(",", "."));
   return Number.isFinite(n) && n >= 0 ? n : 0;
 }
 
+function generateMemo() {
+  return "ZCV-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+}
+
+function copy(text: string, setCopied: (v: boolean) => void) {
+  navigator.clipboard.writeText(text).then(() => {
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  });
+}
+
+/* ================== COMPONENT ================== */
+
 export default function CalculatorSection() {
-  /* ---------- calculator ---------- */
+  /* ---------- calculator state ---------- */
   const [principal, setPrincipal] = useState("1000");
   const [years, setYears] = useState("3");
   const [baseline, setBaseline] = useState("12");
@@ -41,7 +56,7 @@ export default function CalculatorSection() {
   const fmt = (n: number) =>
     n.toLocaleString("en-US", { maximumFractionDigits: 2 });
 
-  /* ---------- deposit ---------- */
+  /* ---------- deposit state ---------- */
   const [memo] = useState(generateMemo);
   const [status, setStatus] = useState<
     "waiting" | "pending" | "confirmed"
@@ -49,6 +64,10 @@ export default function CalculatorSection() {
   const [confirmations, setConfirmations] = useState(0);
   const [received, setReceived] = useState<number | null>(null);
 
+  const [addrCopied, setAddrCopied] = useState(false);
+  const [memoCopied, setMemoCopied] = useState(false);
+
+  /* ---------- polling ---------- */
   useEffect(() => {
     const interval = setInterval(async () => {
       const res = await fetch(`/api/deposit/status?memo=${memo}`);
@@ -64,10 +83,12 @@ export default function CalculatorSection() {
     return () => clearInterval(interval);
   }, [memo]);
 
+  /* ================== RENDER ================== */
+
   return (
     <section className="reveal border-b border-white/5 bg-zv-bg-soft/60 py-16 lg:py-20">
       <div className="mx-auto max-w-5xl px-4 lg:px-6">
-        {/* ---------- header ---------- */}
+        {/* ---------- HEADER ---------- */}
         <header className="max-w-3xl space-y-3">
           <p className="text-[0.7rem] uppercase tracking-[0.28em] text-zv-muted">
             Illustrative compounding
@@ -76,17 +97,14 @@ export default function CalculatorSection() {
             Explore how bonus exposure can affect long-term outcomes.
           </h2>
           <p className="text-sm leading-relaxed text-zv-muted">
-            Calculator below is illustrative. Deposits, if made, are real ZEC
+            The calculator is illustrative. Deposits, if made, are real ZEC
             transfers to a shielded address.
           </p>
         </header>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-          {/* ---------- calculator inputs ---------- */}
+          {/* ================== INPUTS ================== */}
           <div className="space-y-4 rounded-3xl border border-white/10 bg-zv-bg-card/80 p-4 sm:p-5">
-            {/* inputs unchanged */}
-            {/* ... (оставлены без изменений) */}
-            {/* ↓↓↓ */}
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1.5 text-xs">
                 <label className="block text-[0.7rem] font-medium uppercase tracking-[0.18em] text-zv-muted">
@@ -152,61 +170,85 @@ export default function CalculatorSection() {
             </div>
           </div>
 
-          {/* ---------- results + deposit ---------- */}
+          {/* ================== RESULTS + DEPOSIT ================== */}
           <div className="space-y-4">
-            {/* results (как было) */}
-            <div className="rounded-3xl border border-white/10 bg-zv-bg-card/90 p-4 sm:p-5 text-xs">
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span>Baseline</span>
-                  <span>≈ {fmt(result.baseValue)} ZEC</span>
-                </div>
-                <div className="flex justify-between border-t border-white/10 pt-3">
-                  <span>Baseline + bonus</span>
-                  <span className="text-zv-gold">
-                    ≈ {fmt(result.bonusValue)} ZEC
-                  </span>
-                </div>
-                <div className="flex justify-between border-t border-zv-gold/25 pt-3 font-semibold text-zv-gold">
-                  <span>Difference</span>
-                  <span>≈ {fmt(result.diff)} ZEC</span>
-                </div>
+            {/* Results */}
+            <div className="rounded-3xl border border-white/10 bg-zv-bg-card/90 p-4 sm:p-5 text-xs space-y-3">
+              <div className="flex justify-between">
+                <span className="text-zv-muted">Baseline</span>
+                <span>≈ {fmt(result.baseValue)} ZEC</span>
+              </div>
+              <div className="flex justify-between border-t border-white/10 pt-3">
+                <span className="text-zv-muted">Baseline + bonus</span>
+                <span className="text-zv-gold">
+                  ≈ {fmt(result.bonusValue)} ZEC
+                </span>
+              </div>
+              <div className="flex justify-between border-t border-zv-gold/25 pt-3 font-semibold text-zv-gold">
+                <span>Difference</span>
+                <span>≈ {fmt(result.diff)} ZEC</span>
               </div>
             </div>
 
-            {/* ---------- REAL DEPOSIT ---------- */}
-            <div className="rounded-3xl border border-zv-gold/40 bg-zv-bg-card/90 p-4 sm:p-5 text-xs space-y-3">
+            {/* Deposit */}
+            <div className="rounded-3xl border border-zv-gold/40 bg-zv-bg-card/90 p-4 sm:p-5 text-xs space-y-4">
               <div className="text-[0.7rem] uppercase tracking-[0.2em] text-zv-muted">
                 Private ZEC deposit
               </div>
 
-              <div>
-                <div className="text-[0.7rem] text-zv-muted">
-                  Shielded address
+              {/* Address */}
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[0.7rem] text-zv-muted">
+                    Shielded deposit address
+                  </span>
+                  <button
+                    onClick={() => copy(ZEC_ADDRESS, setAddrCopied)}
+                    className="rounded-lg border border-white/10 px-2 py-0.5 text-[0.65rem] text-zv-muted hover:border-zv-gold/50 hover:text-zv-gold transition"
+                  >
+                    {addrCopied ? "Copied" : "Copy"}
+                  </button>
                 </div>
-                <code className="break-all text-zv-text">
+                <div className="rounded-2xl border border-white/10 bg-zv-bg px-3 py-2 font-mono text-[0.7rem] break-all">
                   {ZEC_ADDRESS}
-                </code>
-              </div>
-
-              <div>
-                <div className="text-[0.7rem] text-zv-muted">
-                  Memo (required)
                 </div>
-                <code className="text-zv-gold">{memo}</code>
               </div>
 
-              <div>
-                <strong>Status:</strong>{" "}
-                {status === "waiting" && "Waiting for deposit"}
-                {status === "pending" &&
-                  `Pending (${confirmations}/10 confirmations)`}
-                {status === "confirmed" && "Confirmed ✅"}
+              {/* Memo */}
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[0.7rem] text-zv-muted">
+                    Memo (required)
+                  </span>
+                  <button
+                    onClick={() => copy(memo, setMemoCopied)}
+                    className="rounded-lg border border-white/10 px-2 py-0.5 text-[0.65rem] text-zv-muted hover:border-zv-gold/50 hover:text-zv-gold transition"
+                  >
+                    {memoCopied ? "Copied" : "Copy"}
+                  </button>
+                </div>
+                <div className="rounded-2xl border border-zv-gold/30 bg-zv-bg px-3 py-2 font-mono text-[0.7rem] text-zv-gold">
+                  {memo}
+                </div>
+              </div>
+
+              {/* Status */}
+              <div className="flex items-center justify-between border-t border-white/10 pt-3">
+                <span className="text-[0.7rem] text-zv-muted">Status</span>
+                <span className="text-[0.7rem] font-medium">
+                  {status === "waiting" && "Waiting for deposit"}
+                  {status === "pending" &&
+                    `Pending (${confirmations}/${REQUIRED_CONFIRMATIONS})`}
+                  {status === "confirmed" && (
+                    <span className="text-zv-gold">Confirmed ✓</span>
+                  )}
+                </span>
               </div>
 
               {received !== null && (
-                <div>
-                  Received: <strong>{received} ZEC</strong>
+                <div className="text-right text-[0.7rem] text-zv-muted">
+                  Received{" "}
+                  <span className="text-zv-text">{received} ZEC</span>
                 </div>
               )}
             </div>
