@@ -12,7 +12,7 @@ export default function Page() {
     <main>
       <Hero />
       <Strip />
-      <section className="shell" id="program">
+      <section className="shell">
         <ProgramSection />
         <BonusSection />
         <CalculatorSection />
