@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 /* ================== CONSTANTS ================== */
 
 const ZEC_ADDRESS =
-  "u14rahgadre4e8s2t4jxnmn2rjtdk7zvvzwykkcxp79e3ymmgmgckzv6n8awsy0xx7prkrxclkqk2vldjvvppafemhr4r0z8ddxf4a0fx9jdtjeyxj69ewh2jg9erez45npdnxx568gg2v420w8zynukvqdl0gj98wevza9j9kfqh2lwy3";
+  "u1myg6r23865zy2jmv3xkpn9c62z0dx5arzdhpsdw78wv05zm4agvhs40juj303g4y92prvhf0f5qp0ahh4g2l0mpfhw725ulp6zvtapja6lzjj48rv8sykr53t2yyr3y5z50cszqstf2l6587fjtfrwrxwurslak359eff3kwdcxkmauw";
 
 const REQUIRED_CONFIRMATIONS = 10;
 
@@ -89,7 +89,7 @@ export default function CalculatorSection() {
   return (
     <section className="reveal border-t border-white/5 py-32">
       <div className="mx-auto max-w-6xl px-6">
-        {/* Header */}
+        {/* HEADER */}
         <header className="mb-20 max-w-3xl space-y-6">
           <p className="text-xs uppercase tracking-[0.28em] text-zv-muted">
             Illustration
@@ -98,9 +98,8 @@ export default function CalculatorSection() {
             See how early alignment can compound over time
           </h2>
           <p className="text-zv-text">
-            Enter an illustrative ZEC amount to explore how long-term exposure
-            and structured incentives may affect outcomes. This is not a
-            forecast.
+            Enter an illustrative ZEC amount to explore how structured exposure
+            and incentives may affect long-term outcomes.
           </p>
         </header>
 
@@ -126,13 +125,13 @@ export default function CalculatorSection() {
                 </div>
 
                 <p className="text-sm text-zv-muted">
-                  Start with an amount to see how outcomes change over time.
+                  This sets the base for the illustration.
                 </p>
               </label>
             </div>
 
             {/* ASSUMPTIONS */}
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
+            <div className="mt-14 grid gap-8 lg:grid-cols-3">
               <Assumption
                 label="Time horizon"
                 suffix="years"
@@ -173,8 +172,8 @@ export default function CalculatorSection() {
             </p>
 
             <p className="mt-8 text-sm leading-relaxed text-zv-muted">
-              This simplified illustration assumes compounded growth and an
-              additive incentive. Actual terms are documented individually.
+              Simplified illustration assuming compounded growth and an additive
+              incentive. Final terms are documented individually.
             </p>
           </div>
         </div>
@@ -245,21 +244,24 @@ function Assumption({
   accent?: boolean;
 }) {
   return (
-    <label className="block space-y-2">
+    <label className="block space-y-3">
       <span className="text-xs uppercase tracking-[0.2em] text-zv-muted">
         {label}
       </span>
+
       <div
-        className={`flex items-center gap-3 rounded-xl border px-4 py-3 ${
+        className={`flex items-center h-14 gap-3 rounded-xl border px-4 ${
           accent ? "border-zv-gold/40" : "border-white/10"
         }`}
       >
         <input
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full bg-transparent text-lg text-zv-text outline-none"
+          className="w-full bg-transparent text-xl font-medium text-zv-text outline-none"
         />
-        <span className="text-sm text-zv-muted">{suffix}</span>
+        <span className="text-sm text-zv-muted whitespace-nowrap">
+          {suffix}
+        </span>
       </div>
     </label>
   );
