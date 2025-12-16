@@ -95,87 +95,98 @@ export default function CalculatorSection() {
             Illustration
           </p>
           <h2 className="text-balance">
-            Illustrative compounding with optional bonus exposure
+            See how early alignment can compound over time
           </h2>
           <p className="text-zv-text">
-            This example illustrates potential outcomes under simplified
-            assumptions. It is not a forecast and does not represent guaranteed
-            results.
+            Enter an illustrative ZEC amount to explore how long-term exposure
+            and structured incentives may affect outcomes. This is not a
+            forecast.
           </p>
         </header>
 
-        <div className="grid gap-16 lg:grid-cols-2">
-          {/* Inputs */}
-          <div className="space-y-8">
-            <Field label="Illustrative principal (ZEC)">
-              <input
-                value={principal}
-                onChange={(e) => setPrincipal(e.target.value)}
-                className="field"
-              />
-            </Field>
+        {/* ================== CALCULATOR ================== */}
+        <div className="grid gap-20 lg:grid-cols-2">
+          {/* LEFT */}
+          <div>
+            {/* HERO INPUT */}
+            <div className="rounded-3xl border border-zv-gold/40 bg-zv-bg-card/90 p-10">
+              <label className="block space-y-4">
+                <span className="text-xs uppercase tracking-[0.28em] text-zv-muted">
+                  Illustrative ZEC amount
+                </span>
 
-            <Field label="Time horizon (years)">
-              <input
+                <div className="flex items-center gap-4">
+                  <span className="text-2xl text-zv-muted">ZEC</span>
+                  <input
+                    value={principal}
+                    onChange={(e) => setPrincipal(e.target.value)}
+                    placeholder="1000"
+                    className="w-full bg-transparent text-4xl font-semibold text-zv-text outline-none placeholder:text-zv-muted/40"
+                  />
+                </div>
+
+                <p className="text-sm text-zv-muted">
+                  Start with an amount to see how outcomes change over time.
+                </p>
+              </label>
+            </div>
+
+            {/* ASSUMPTIONS */}
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              <Assumption
+                label="Time horizon"
+                suffix="years"
                 value={years}
-                onChange={(e) => setYears(e.target.value)}
-                className="field"
+                onChange={setYears}
               />
-            </Field>
-
-            <Field label="Baseline annual growth (%)">
-              <input
+              <Assumption
+                label="Baseline profile"
+                suffix="% / year"
                 value={baseline}
-                onChange={(e) => setBaseline(e.target.value)}
-                className="field"
+                onChange={setBaseline}
               />
-            </Field>
-
-            <Field label="Illustrative bonus (%)">
-              <input
+              <Assumption
+                label="Illustrative bonus"
+                suffix="% / year"
                 value={bonus}
-                onChange={(e) => setBonus(e.target.value)}
-                className="field border-zv-gold/40"
+                onChange={setBonus}
+                accent
               />
-            </Field>
+            </div>
           </div>
 
-          {/* Results */}
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-10">
-            <div className="space-y-10">
-              <div>
-                <p className="text-sm uppercase tracking-wide text-zv-muted">
-                  Baseline outcome
-                </p>
-                <div className="mt-2 text-4xl font-semibold">
-                  {fmt(result.baseValue)} ZEC
-                </div>
-              </div>
+          {/* RIGHT — RESULT */}
+          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-12">
+            <p className="text-sm uppercase tracking-wide text-zv-muted">
+              Illustrative outcome
+            </p>
 
-              <div>
-                <p className="text-sm uppercase tracking-wide text-zv-muted">
-                  With illustrative bonus
-                </p>
-                <div className="mt-2 text-4xl font-semibold text-zv-gold">
-                  {fmt(result.bonusValue)} ZEC
-                </div>
-              </div>
-
-              <p className="text-sm leading-relaxed text-zv-muted">
-                Difference: ≈ {fmt(result.diff)} ZEC
-              </p>
+            <div className="mt-8 text-5xl font-semibold text-zv-gold">
+              {fmt(result.bonusValue)} ZEC
             </div>
+
+            <p className="mt-4 text-zv-muted">
+              Compared to baseline:&nbsp;
+              <span className="text-zv-text font-medium">
+                +{fmt(result.diff)} ZEC
+              </span>
+            </p>
+
+            <p className="mt-8 text-sm leading-relaxed text-zv-muted">
+              This simplified illustration assumes compounded growth and an
+              additive incentive. Actual terms are documented individually.
+            </p>
           </div>
         </div>
 
-        {/* Optional deposit */}
-        <div className="mt-20 max-w-4xl">
-          <p className="mb-6 text-xs uppercase tracking-[0.28em] text-zv-muted">
-            Optional: private ZEC deposit
+        {/* ================== DEPOSIT ================== */}
+        <div className="mt-24 max-w-4xl">
+          <p className="mb-6 text-zv-text">
+            If this structure aligns with your objectives, participation is
+            completed via a private ZEC transfer to a shielded address.
           </p>
 
           <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 space-y-6">
-            {/* Address */}
             <Row
               label="Shielded deposit address"
               value={ZEC_ADDRESS}
@@ -184,7 +195,6 @@ export default function CalculatorSection() {
               onCopy={() => copy(ZEC_ADDRESS, setAddrCopied)}
             />
 
-            {/* Memo */}
             <Row
               label="Memo (required)"
               value={memo}
@@ -194,7 +204,6 @@ export default function CalculatorSection() {
               onCopy={() => copy(memo, setMemoCopied)}
             />
 
-            {/* Status */}
             <div className="flex justify-between text-sm">
               <span className="text-zv-muted">Status</span>
               <span>
@@ -209,7 +218,7 @@ export default function CalculatorSection() {
 
             {received !== null && (
               <p className="text-sm text-zv-muted">
-                Received:{" "}
+                Received:&nbsp;
                 <span className="text-zv-text">{received} ZEC</span>
               </p>
             )}
@@ -222,17 +231,36 @@ export default function CalculatorSection() {
 
 /* ================== UI HELPERS ================== */
 
-function Field({
+function Assumption({
   label,
-  children,
+  value,
+  onChange,
+  suffix,
+  accent,
 }: {
   label: string;
-  children: React.ReactNode;
+  value: string;
+  onChange: (v: string) => void;
+  suffix: string;
+  accent?: boolean;
 }) {
   return (
     <label className="block space-y-2">
-      <span className="text-sm text-zv-muted">{label}</span>
-      {children}
+      <span className="text-xs uppercase tracking-[0.2em] text-zv-muted">
+        {label}
+      </span>
+      <div
+        className={`flex items-center gap-3 rounded-xl border px-4 py-3 ${
+          accent ? "border-zv-gold/40" : "border-white/10"
+        }`}
+      >
+        <input
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-full bg-transparent text-lg text-zv-text outline-none"
+        />
+        <span className="text-sm text-zv-muted">{suffix}</span>
+      </div>
     </label>
   );
 }
