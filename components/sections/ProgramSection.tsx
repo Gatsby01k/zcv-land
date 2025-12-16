@@ -3,57 +3,61 @@
 export default function ProgramSection() {
   return (
     <section
-      className="reveal border-b border-white/5 bg-zv-bg-soft/60 py-16 lg:py-20"
       id="program"
+      className="reveal border-t border-white/5 py-32"
     >
-      <div className="mx-auto max-w-5xl px-4 lg:px-6">
-        <header className="max-w-3xl space-y-3">
-          <p className="text-[0.7rem] uppercase tracking-[0.28em] text-zv-muted">
+      <div className="mx-auto max-w-6xl px-6">
+        {/* Header */}
+        <header className="mb-20 max-w-3xl space-y-6">
+          <p className="text-xs uppercase tracking-[0.28em] text-zv-muted">
             Program
           </p>
-          <h2 className="text-balance text-2xl font-semibold text-zv-text sm:text-3xl">
-            A focused program for Zcash-aligned, long-term capital.
+
+          <h2 className="text-balance">
+            A focused program for Zcash-aligned, long-term capital
           </h2>
-          <p className="text-sm leading-relaxed text-zv-muted">
-            The Zcash.Ventures program provides private, structured access to
+
+          <p className="text-zv-text">
+            Zcash.Ventures provides private, structured access to
             ZEC-denominated venture opportunities. We are not an exchange, a
-            trading desk or a public fund. We selectively work with partners who
-            want quiet, thoughtful exposure to builders and structures that
-            deepen the Zcash ecosystem.
+            trading desk, or a public fund. We work selectively with partners
+            seeking thoughtful, long-term exposure to structures and builders
+            that strengthen the Zcash ecosystem.
           </p>
         </header>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          <article className="rounded-2xl border border-white/8 bg-zv-bg-card/80 p-4 text-sm text-zv-muted">
-            <h3 className="mb-2 text-sm font-semibold text-zv-text">
+        {/* Cards */}
+        <div className="grid gap-8 md:grid-cols-3">
+          <article className="rounded-2xl border border-white/10 bg-white/[0.03] p-8">
+            <h3 className="mb-3">
               Curated access
             </h3>
             <p>
-              We focus on a narrow set of structures where we have conviction:
-              privacy infrastructure, tooling around ZEC, and ventures that
+              We focus on a narrow set of opportunities where we have conviction:
+              privacy infrastructure, ZEC-native tooling, and ventures that
               materially advance the Zcash mission.
             </p>
           </article>
 
-          <article className="rounded-2xl border border-white/8 bg-zv-bg-card/80 p-4 text-sm text-zv-muted">
-            <h3 className="mb-2 text-sm font-semibold text-zv-text">
+          <article className="rounded-2xl border border-white/10 bg-white/[0.03] p-8">
+            <h3 className="mb-3">
               Structured economics
             </h3>
             <p>
               Participation is governed by clear, documented terms. Economics,
-              vesting and reporting are aligned to long-term value creation
-              rather than short-term trading.
+              vesting, and reporting are aligned with long-term value creation
+              rather than short-term trading dynamics.
             </p>
           </article>
 
-          <article className="rounded-2xl border border-white/8 bg-zv-bg-card/80 p-4 text-sm text-zv-muted">
-            <h3 className="mb-2 text-sm font-semibold text-zv-text">
+          <article className="rounded-2xl border border-white/10 bg-white/[0.03] p-8">
+            <h3 className="mb-3">
               Direct relationship
             </h3>
             <p>
-              You work directly with the core team, not a support queue. Terms,
-              structures and reporting are agreed in advance and remain
-              consistently professional.
+              You engage directly with the core team. Structures, terms, and
+              reporting are agreed in advance and maintained with a consistently
+              professional standard.
             </p>
           </article>
         </div>
