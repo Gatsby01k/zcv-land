@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 /* ================== CONSTANTS ================== */
 
 const ZEC_ADDRESS =
-  "u14rahgadre4e8s2t4jxnmn2rjtdk7zvvzwykkcxp79e3ymmgmgckzv6n8awsy0xx7prkrxclkqk2vldjvvppafemhr4r0z8ddxf4a0fx9jdtjeyxj69ewh2jg9erez45npdnxx568gg2v420w8zynukvqdl0gj98wevza9j9kfqh2lwy3";
+  "u1myg6r23865zy2jmv3xkpn9c62z0dx5arzdhpsdw78wv05zm4agvhs40juj303g4y92prvhf0f5qp0ahh4g2l0mpfhw725ulp6zvtapja6lzjj48rv8sykr53t2yyr3y5z50cszqstf2l6587fjtfrwrxwurslak359eff3kwdcxkmauw";
 
 const REQUIRED_CONFIRMATIONS = 10;
 
