@@ -2,6 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  h1 {
+    font-size: 52px;
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    font-size: 36px;
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    font-size: 21px;
+    line-height: 1.3;
+    font-weight: 500;
+  }
+
+  p {
+    color: var(--muted);
+  }
+}
+
+
 
 :root {
   /* Brand surface */
